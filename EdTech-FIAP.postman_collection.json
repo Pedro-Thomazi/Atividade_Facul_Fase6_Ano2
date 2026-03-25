@@ -1,0 +1,250 @@
+{
+	"info": {
+		"_postman_id": "eed07be3-8c60-4060-9653-ff8c1471d0e7",
+		"name": "EdTech-FIAP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21579892"
+	},
+	"item": [
+		{
+			"name": "USER",
+			"item": [
+				{
+					"name": "create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Ana\",\r\n    \"email\": \"ana@hotmail.com\",\r\n    \"password\": \"ana123\",\r\n    \"confirmPassword\": \"ana123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/user/register",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user",
+								"register"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get my details",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJlZHRlY2giLCJzdWIiOiJwZWRyb0Bob3RtYWlsLmNvbSIsImV4cCI6MTc2MTkzMTkwM30.BbSRScNdfd38xwHXHHwP8nU4qQd9WNXxkhvi2-KlkL0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Teste\",\r\n    \"email\": \"teste@hotmail.com\",\r\n    \"password\": \"teste123\",\r\n    \"confirmPassword\": \"teste123\"\r\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/user/my-details",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user",
+								"my-details"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"pedro@hotmail.com\",\r\n    \"password\": \"pedro123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/user/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "desative user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJlZHRlY2giLCJzdWIiOiJ0ZXN0ZUBob3RtYWlsLmNvbSIsImV4cCI6MTc2MTkzMjg3OH0.ZAZ195Ri2-3aJ7FrZmaPxzw4SXNOE5Nu5rk1MuvPcL8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Teste\",\r\n    \"email\": \"teste@hotmail.com\",\r\n    \"password\": \"teste123\",\r\n    \"confirmPassword\": \"teste123\"\r\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/user/desative-user",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user",
+								"desative-user"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJlZHRlY2giLCJzdWIiOiJwZWRyb0Bob3RtYWlsLmNvbSIsImV4cCI6MTc2MTkzMzYzNX0.2JY7zvQxihAK6svGBMC1C21jM2H8RkGwQlHoXWqKUH4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Pedro T.V\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/user/update-user",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"user",
+								"update-user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TREINAMENTO",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "REGISTRO DE CONCLUSAO",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": ""
+		}
+	]
+}
