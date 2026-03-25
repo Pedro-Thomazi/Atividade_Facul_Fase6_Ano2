@@ -1,7 +1,7 @@
 name: 01 - Criando Workflow
 on:
   push:
-    branches: 'main/**'
+    branches: 'main'
 
 jobs:
   echo:
