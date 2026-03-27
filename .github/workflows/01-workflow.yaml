@@ -1,11 +1,13 @@
 name: 01 - Criando Workflow
+
 on:
   push:
     branches: 'main'
 
 jobs:
-  checkout_java_docker:
+  build-and-docker:
     runs-on: ubuntu-latest
+
     steps:
       - name: Git Checkout
         uses: actions/checkout@v4
@@ -16,13 +18,33 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Build
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Build with Maven
+        run: mvn clean package -DskipTests
+
+      - name: List generated files
+        run: |
+          echo "Files in target directory:"
+          ls -la target/
+          echo "JAR file:"
+          find target -name "*.jar"
+
+      - name: Build Docker image
         uses: docker/build-push-action@v6
         with:
+          context: .
           push: false
+          tags: edtech-app:latest
+          load: true  # Carrega a imagem no docker daemon
 
       - name: Executar scripts
         run: |
           git branch
-          java --version 
-          mvn clean package
+          java --version
+          docker images | grep edtech-app
