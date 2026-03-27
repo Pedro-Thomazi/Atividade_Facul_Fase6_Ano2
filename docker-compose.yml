@@ -1,26 +1,47 @@
-version: "3"
+version: "3.8"
+
 services:
   edtech-db:
     image: mysql:8.0
+    container_name: edtech-mysql  # Nome fixo para facilitar
     environment:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_DATABASE=myDB
+      - MYSQL_USER=appuser  # Opcional: criar usuário específico
+      - MYSQL_PASSWORD=apppassword
     ports:
-      - "3306:3306"  # Expor porta do MySQL
+      - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
+    networks:
+      - edtech-network
+    healthcheck:  # Verifica se o banco está pronto
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
 
   edtech-app:
     build: .
+    container_name: edtech-app
     ports:
       - "8080:8080"
     depends_on:
-      - edtech-db
+      edtech-db:
+        condition: service_healthy  # Aguarda o banco ficar saudável
     environment:
       - PROFILE=prd
-      - SPRING_DATASOURCE_URL=jdbc:mysql://edtech-db:3306/myDB
+      - SPRING_DATASOURCE_URL=jdbc:mysql://edtech-db:3306/myDB?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=password
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=true
+    networks:
+      - edtech-network
+    restart: unless-stopped  # Reinicia automaticamente se falhar
+
+networks:
+  edtech-network:
+    driver: bridge
 
 volumes:
   mysql-data:
