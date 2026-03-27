@@ -1,0 +1,26 @@
+version: "3"
+services:
+  edtech-db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=myDB
+    ports:
+      - "3306:3306"  # Expor porta do MySQL
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  edtech-app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - edtech-db
+    environment:
+      - PROFILE=prd
+      - SPRING_DATASOURCE_URL=jdbc:mysql://edtech-db:3306/myDB
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=password
+
+volumes:
+  mysql-data:
