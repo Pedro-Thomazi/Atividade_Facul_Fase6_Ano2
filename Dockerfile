@@ -1,16 +1,19 @@
 FROM maven:3.9.8-eclipse-temurin-21 AS build
 
-RUN mkdir /opt/app
-COPY . /opt/app
-WORKDIR /opt/app
-RUN mvn clean package
+WORKDIR /app
+COPY pom.xml .
+RUN mvn dependency:go-offline
+
+COPY src ./src
+RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:21-jre-alpine
 
-RUN mkdir /opt/app
-COPY --from=build /opt/app/target/*.jar /opt/app/app.jar
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
 
-WORKDIR /opt/app
 ENV PROFILE=prd
 EXPOSE 8080
-ENTRYPOINT ["sh", "-c", "java -Dspring.profiles.active=$PROFILE -jar app.jar"]
+
+# Script de inicialização que aguarda o banco
+ENTRYPOINT ["sh", "-c", "java -Dspring.profiles.active=${PROFILE} -jar app.jar"]
